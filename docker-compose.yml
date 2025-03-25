@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: prewave_postgres_db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - '${DB_PORT}:5432'
+    volumes:
+      - prewave_db_data:/var/lib/postgresql/data
+volumes:
+  prewave_db_data:
