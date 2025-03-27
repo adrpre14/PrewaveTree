@@ -1,17 +1,34 @@
+DROP TABLE IF EXISTS edge;
+
 CREATE TABLE edge (
-    from_id INT NOT NULL CHECK (from_id <> to_id),
-    to_id INT UNIQUE NOT NULL
+    from_id INT NOT NULL CHECK (from_id <> to_id) CHECK ( from_id > 0 ),
+    to_id INT UNIQUE NOT NULL CHECK ( to_id > 0 )
 );
+
+CREATE OR REPLACE FUNCTION return_children(parent_id INT)
+    RETURNS SETOF edge
+    LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+        WITH RECURSIVE sub_tree_from_root AS (
+            SELECT e1.*
+            FROM edge e1
+            WHERE e1.from_id = parent_id
+            UNION
+            SELECT e2.*
+            FROM edge e2
+                     JOIN sub_tree_from_root str ON e2.from_id = str.to_id
+        ) SELECT * from sub_tree_from_root;
+END;
+$$;
 
 CREATE OR REPLACE FUNCTION check_cycle()
 RETURNS TRIGGER
 LANGUAGE plpgsql
 AS $$
-    DECLARE
-        parents INT;
     BEGIN
-        SELECT count(e.from_id) INTO parents FROM edge e WHERE e.from_id = NEW.to_id;
-        IF parents > 0 THEN
+        IF EXISTS (SELECT 1 FROM return_children(NEW.to_id) ch WHERE ch.to_id = NEW.from_id) THEN
             RAISE EXCEPTION 'Cycle detected';
         END IF;
         RETURN NEW;
