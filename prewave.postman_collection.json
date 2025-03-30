@@ -12,13 +12,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/edges/1",
+					"raw": "localhost:8080/tree/6",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"edges",
+						"tree",
 						"1"
 					]
 				}

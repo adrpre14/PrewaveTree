@@ -6,19 +6,18 @@ import com.example.prewaveTree.service.EdgeService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/edges")
 class EdgeController(private val edgeService: EdgeService) {
-    @PostMapping
+    @PostMapping("/edges")
     fun createEdge(@RequestBody edge: Edge): Edge  {
         return edgeService.createEdge(edge)
     }
 
-    @DeleteMapping
+    @DeleteMapping("/edges")
     fun deleteEdge(@RequestBody edge: Edge) {
         return edgeService.deleteEdge(edge)
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/tree/{id}")
     fun getTreeFromRoot(@PathVariable id: Int): Tree {
         return edgeService.getTreeFromRoot(id)
     }
