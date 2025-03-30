@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "ab56c21d-dffa-442e-8692-8aa700870106",
+		"name": "prewave",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42591116"
+	},
+	"item": [
+		{
+			"name": "OK Get Tree By Node ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/edges/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"edges",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OK Delete Edge",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fromId\": 8,\n    \"toId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/edges",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"edges"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OK Create Edge",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fromId\": 8,\n    \"toId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/edges",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"edges"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KO Create Edge (missing property)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fromId\": 8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/edges",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"edges"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KO Create Edge (property not a number)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fromId\": 8,\n    \"toId\": \"something\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/edges",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"edges"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KO Create Edge (both properties equal)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fromId\": 8,\n    \"toId\": 8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/edges",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"edges"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
